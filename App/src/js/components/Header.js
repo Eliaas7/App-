@@ -1,19 +1,39 @@
 import React from "react";
 import Title from "./Header/Title";
 
+
 export default class Header extends React.Component{
-  render(){
-    return(
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
 
-      <div>
-        <form action="success.html">
-          <Title title={this.props.title}/>
-          <p>Nombre de Usuario<input className="user" type="text" name="username"/></p>
-          <p>Contraseña<input className="password" type="password" name="psw"/></p>
-          <input type="submit" value="Submit"/>
-        </form>
-      </div>
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Welcome ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <Title title={this.props.title} />
+            <label>
+              <p>User Name:
+              <input type="text" value={this.state.value} onChange={this.handleChange} /></p>
+              <p>Password:
+              <input type="password" name="Password"/></p>
+            </label>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
     );
   }
-}
+  }
